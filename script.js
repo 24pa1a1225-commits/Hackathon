@@ -14,7 +14,6 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 });
 
 // Navbar scroll effect
-let lastScroll = 0;
 const navbar = document.querySelector('.navbar');
 
 window.addEventListener('scroll', () => {
@@ -25,8 +24,6 @@ window.addEventListener('scroll', () => {
     } else {
         navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.15)';
     }
-    
-    lastScroll = currentScroll;
 });
 
 // Contact Form Handling
@@ -70,8 +67,18 @@ if (newsletterForm) {
         const email = newsletterForm.querySelector('input[type="email"]').value;
         
         if (email) {
-            alert('Thank you for subscribing to our newsletter!');
-            newsletterForm.reset();
+            // Create temporary success message
+            const button = newsletterForm.querySelector('button');
+            const originalHTML = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check"></i>';
+            button.style.background = '#10b981';
+            
+            // Reset after 3 seconds
+            setTimeout(() => {
+                button.innerHTML = originalHTML;
+                button.style.background = '';
+                newsletterForm.reset();
+            }, 3000);
         }
     });
 }
